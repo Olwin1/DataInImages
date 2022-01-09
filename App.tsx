@@ -43,12 +43,10 @@ interface ActionBarImageProps {
 const App = ({navigation}: any) => {
   const ActionBarImage: React.FC<ActionBarImageProps> = (props) => {
     return (
-      <View style={{ flexDirection: 'row', flexWrap: 'wrap' }}>
-        <Pressable onPress={() => props.onPress()}>
+        <Pressable onPress={() => props.onPress()} style={{ flexDirection: 'row', flexWrap: 'wrap' }}>
         <Image source={require('./back.png')} style={styles.Back} />
         <Image source={require('./avatar.png')} style={styles.imageSmaller} />
         </Pressable>
-      </View>
     );
   };
   return (
