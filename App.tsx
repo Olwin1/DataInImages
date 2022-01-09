@@ -18,6 +18,7 @@ import {
   useColorScheme,
   View,
   Image,
+  Pressable,
 } from 'react-native';
 
 import {
@@ -32,14 +33,21 @@ import {NavigationContainer} from '@react-navigation/native';
 import {createStackNavigator} from '@react-navigation/stack';
 
 import List from './List';
+import Chat from './Chat';
 const Stack = createStackNavigator();
 
-const App = () => {
-  const ActionBarImage = () => {
+interface ActionBarImageProps {
+  onPress: any
+}
+
+const App = ({navigation}: any) => {
+  const ActionBarImage: React.FC<ActionBarImageProps> = (props) => {
     return (
       <View style={{ flexDirection: 'row', flexWrap: 'wrap' }}>
+        <Pressable onPress={() => props.onPress()}>
         <Image source={require('./back.png')} style={styles.Back} />
         <Image source={require('./avatar.png')} style={styles.imageSmaller} />
+        </Pressable>
       </View>
     );
   };
@@ -49,7 +57,11 @@ const App = () => {
         <Stack.Screen
           name="List"
           component={List}
-          options={{headerLeft: () => <ActionBarImage />}}
+        />
+        <Stack.Screen
+          name="Chat"
+          component={Chat}
+          options={({navigation}) => ({headerLeft: () => <ActionBarImage onPress={navigation.goBack}/>})}
         />
       </Stack.Navigator>
     </NavigationContainer>
