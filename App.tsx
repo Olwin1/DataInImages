@@ -28,89 +28,31 @@ import {
   ReloadInstructions,
 } from 'react-native/Libraries/NewAppScreen';
 import styles from './styles';
+import {NavigationContainer} from '@react-navigation/native';
+import {createStackNavigator} from '@react-navigation/stack';
 
-const Section: React.FC<{
-  title: string;
-}> = ({children, title}) => {
-  const isDarkMode = useColorScheme() === 'dark';
-  return (
-    <View style={styles.sectionContainer}>
-      <Text
-        style={[
-          styles.sectionTitle,
-          {
-            color: isDarkMode ? Colors.white : Colors.black,
-          },
-        ]}>
-        {title}
-      </Text>
-      <Text
-        style={[
-          styles.sectionDescription,
-          {
-            color: isDarkMode ? Colors.light : Colors.dark,
-          },
-        ]}>
-        {children}
-      </Text>
-    </View>
-  );
-};
+import List from './List';
+const Stack = createStackNavigator();
 
 const App = () => {
-  const isDarkMode = useColorScheme() === 'dark';
-
-  const backgroundStyle = {
-    backgroundColor: isDarkMode ? Colors.darker : Colors.lighter,
-  };
-
-  const PeopleBox = () => {
-    const Header = () => {
-      return (
-        <View style={styles.media}>
-          <Image
-            source={require('./avatar.png')}
-            style={styles.image}
-          />
-          <Text style={styles.name}>Jason Doe</Text>
-          <View style={styles.dateWrapper}>
-          <Text style={styles.date}>25 Dec</Text>
-          </View>
-      </View>)
-    }
-    const Description = () => {
-      return (
-        <View style={styles.descriptionWrapper}>
-        <Text style={styles.description}>
-        Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do
-        eiusmod tempor incididunt ut labore.
-      </Text>
-      </View>
-      )
-    }
+  const ActionBarImage = () => {
     return (
-      <View style={styles.item}>
-      <Header />
-      <Description />
+      <View style={{ flexDirection: 'row', flexWrap: 'wrap' }}>
+        <Image source={require('./back.png')} style={styles.Back} />
+        <Image source={require('./avatar.png')} style={styles.imageSmaller} />
       </View>
-
     );
   };
-
   return (
-    <SafeAreaView style={backgroundStyle}>
-      <StatusBar barStyle={isDarkMode ? 'light-content' : 'dark-content'} />
-      <ScrollView
-        contentInsetAdjustmentBehavior="automatic"
-        style={backgroundStyle}>
-        <View>
-          <PeopleBox />
-          <PeopleBox />
-          <PeopleBox />
-          <PeopleBox />
-        </View>
-      </ScrollView>
-    </SafeAreaView>
+    <NavigationContainer>
+      <Stack.Navigator>
+        <Stack.Screen
+          name="List"
+          component={List}
+          options={{headerLeft: () => <ActionBarImage />}}
+        />
+      </Stack.Navigator>
+    </NavigationContainer>
   );
 };
 
