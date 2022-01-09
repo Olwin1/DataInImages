@@ -25,6 +25,19 @@ const styles = StyleSheet.create({
     height: 75,
 
   },
+  Back: {
+    alignSelf: "center",
+    marginLeft: 15,
+    width: 20,
+    height: 20,
+
+  },
+  imageSmaller: {
+    marginLeft: 10,
+    width: 50,
+    height: 50,
+
+  },
   name: {
   fontSize: 18,
   },
