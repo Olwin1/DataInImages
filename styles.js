@@ -28,10 +28,13 @@ const styles = StyleSheet.create({
   name: {
   fontSize: 18,
   },
+  dateWrapper: {
+    marginLeft:"auto",
+  },
   date: {
     fontSize: 16,
-    paddingLeft: 10,
     textAlign: "right",
+    paddingRight: 10,
   },
   descriptionWrapper: {
     padding: 15,

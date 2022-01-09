@@ -73,7 +73,9 @@ const App = () => {
             style={styles.image}
           />
           <Text style={styles.name}>Jason Doe</Text>
+          <View style={styles.dateWrapper}>
           <Text style={styles.date}>25 Dec</Text>
+          </View>
       </View>)
     }
     const Description = () => {
