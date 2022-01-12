@@ -29,6 +29,7 @@ import {
   ReloadInstructions,
 } from 'react-native/Libraries/NewAppScreen';
 import styles from './styles';
+import style from './message';
 
 const Chat = () => {
   const isDarkMode = useColorScheme() === 'dark';
@@ -36,20 +37,38 @@ const Chat = () => {
   const backgroundStyle = {
     backgroundColor: isDarkMode ? Colors.darker : Colors.lighter,
   };
+  const Message = (props:any) => {
+    return (
+      <View style={[props.isMine?style.sent:style.recieved, { flexDirection: 'row', flexWrap: 'wrap' }]}>
+        {!props.isMine&&<Image source={require('./avatar.png')} style={styles.imageSmaller} />}
+      <View>
+        <View style={[style.message, props.isMine?style.sentBackground:style.recievedBackground]}>
+        <Text>{props.children}</Text>
+        </View>
+      </View>
+      </View>
+    );
+  };
   const Messages = () => {
-      return (
-          <View>
-              <Text>hahhahaha</Text>
-          </View>
-      )
+    return (
+      <View>
+        <Message isMine={true}>Hello{"\n"}dfdf{"\n"}dfdf{"\n"}dfdf{"\n"}dfdf{"\n"}dfdf{"\n"}dfdf{"\n"}dfdf{"\n"}dfdf{"\n"}dfdf{"\n"}dfdf{"\n"}dfdf{"\n"}dfdf</Message>
+        <Message isMine={false}>Hi</Message>
+        <Message isMine={true}>OMG HI</Message>
+        <Message isMine={true}>YOU RESPONDEDDED</Message>
+        <Message isMine={true}>WOOOO</Message>
+        <Message isMine={false}>whatever.</Message>
+
+      </View>
+    );
   };
   return (
     <View>
       <Messages />
       <TextInput
-        //style={styles.input}
-        //onChangeText={onChangeText}
-        //value={text}
+      //style={styles.input}
+      //onChangeText={onChangeText}
+      //value={text}
       />
     </View>
   );
