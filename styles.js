@@ -67,6 +67,14 @@ const styles = StyleSheet.create({
     width: "80%",
     borderRadius: 25,
 
+  },
+  behind: {
+    alignItems: 'center',
+    justifyContent: 'center',
+    position: 'absolute',
+    left: 0,
+    bottom: 0,
+    width: '100%',
   }
   }); 
   export default styles;

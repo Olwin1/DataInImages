@@ -104,14 +104,17 @@ const Chat = () => {
     <KeyboardAvoidingView behavior={Platform.OS === "ios" ? "padding" : "height"} style={{flex:1}} keyboardVerticalOffset={110}>
       <ScrollView>
       <Messages />
-      <View  style={{flexDirection: "row", padding: 5, marginLeft:"auto", marginBottom:20}}>
+      </ScrollView>
+      <View  style={[{flexDirection: "row", padding: 5, marginLeft:"auto", marginBottom:0}, styles.behind]}>
       <TextInput
       style={styles.input}
       //onChangeText={onChangeText}
       //value={text}
       />
       <TouchableOpacity style={{borderRadius:50,backgroundColor:"#cecece",width: 45,height: 45}}><Image style={{height:30, width: 30, marginLeft:10, marginTop:8}} source={require('./send.png')} /></TouchableOpacity>
-      </View></ScrollView></KeyboardAvoidingView>
+      </View>
+      <View style={{height: 5, backgroundColor: "#f2f2f2"}}></View>
+      </KeyboardAvoidingView>
 
   );
 };
