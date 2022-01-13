@@ -62,5 +62,11 @@ const styles = StyleSheet.create({
     borderWidth: 0.8,
     borderColor: "#d9d9d9",
   },
+  input: {
+    backgroundColor: "#cecece",
+    width: "80%",
+    borderRadius: 25,
+
+  }
   }); 
   export default styles;

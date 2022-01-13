@@ -19,6 +19,10 @@ import {
   View,
   Image,
   TextInput,
+  Button,
+  TouchableOpacity,
+  KeyboardAvoidingView,
+  Platform
 } from 'react-native';
 
 import {
@@ -58,19 +62,57 @@ const Chat = () => {
         <Message isMine={true}>YOU RESPONDEDDED</Message>
         <Message isMine={true}>WOOOO</Message>
         <Message isMine={false}>whatever.</Message>
+        <Message isMine={false}>whatever.</Message>
+        <Message isMine={false}>whatever.</Message>
+        <Message isMine={false}>whatever.</Message>
+        <Message isMine={false}>whatever.</Message>
+        <Message isMine={false}>whatever.</Message>
+        <Message isMine={false}>whatever.</Message>
+        <Message isMine={false}>whatever.</Message>
+        <Message isMine={false}>whatever.</Message>
+        <Message isMine={false}>whatever.</Message>
+        <Message isMine={false}>whatever.</Message>
+        <Message isMine={false}>whatever.</Message>
+        <Message isMine={false}>whatever.</Message>
+        <Message isMine={false}>whatever.</Message>
+        <Message isMine={false}>whatever.</Message>
+        <Message isMine={false}>whatever.</Message>
+        <Message isMine={false}>whatever.</Message>
+        <Message isMine={false}>whatever.</Message>
+        <Message isMine={false}>whatever.</Message>
+        <Message isMine={false}>whatever.</Message>
+        <Message isMine={false}>whatever.</Message>
+        <Message isMine={false}>whatever.</Message>
+        <Message isMine={false}>whatever.</Message>
+        <Message isMine={false}>whatever.</Message>
+        <Message isMine={false}>whatever.</Message>
+        <Message isMine={false}>whatever.</Message>
+        <Message isMine={false}>whatever.</Message>
+        <Message isMine={false}>whatever.</Message>
+        <Message isMine={false}>whatever.</Message>
+        <Message isMine={false}>whatever.</Message>
+        <Message isMine={false}>whatever.</Message>
+        <Message isMine={false}>whatever.</Message>
+        <Message isMine={false}>whatever.</Message>
+        <Message isMine={false}>whatever.</Message>
+        <Message isMine={false}>whatever.</Message>
 
       </View>
     );
   };
   return (
-    <View>
+    <KeyboardAvoidingView behavior={Platform.OS === "ios" ? "padding" : "height"} style={{flex:1}} keyboardVerticalOffset={110}>
+      <ScrollView>
       <Messages />
+      <View  style={{flexDirection: "row", padding: 5, marginLeft:"auto", marginBottom:20}}>
       <TextInput
-      //style={styles.input}
+      style={styles.input}
       //onChangeText={onChangeText}
       //value={text}
       />
-    </View>
+      <TouchableOpacity style={{borderRadius:50,backgroundColor:"#cecece",width: 45,height: 45}}><Image style={{height:30, width: 30, marginLeft:10, marginTop:8}} source={require('./send.png')} /></TouchableOpacity>
+      </View></ScrollView></KeyboardAvoidingView>
+
   );
 };
 export default Chat;
