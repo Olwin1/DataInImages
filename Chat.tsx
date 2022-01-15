@@ -34,6 +34,7 @@ import {
 } from 'react-native/Libraries/NewAppScreen';
 import styles from './styles';
 import style from './message';
+import AsyncStorage from '@react-native-async-storage/async-storage';
 
 const Chat = () => {
   const isDarkMode = useColorScheme() === 'dark';
@@ -64,8 +65,10 @@ const Chat = () => {
     );
   };
   const Messages = () => {
+    console.log("test")
     return (
-        <ScrollView>
+      <ScrollView>
+        <View>
           <Message isMine={true}>
             Hello{'\n'}dfdf{'\n'}dfdf{'\n'}dfdf{'\n'}dfdf{'\n'}dfdf{'\n'}dfdf
             {'\n'}dfdf{'\n'}dfdf{'\n'}dfdf{'\n'}dfdf{'\n'}dfdf{'\n'}dfdf
@@ -109,17 +112,69 @@ const Chat = () => {
           <Message isMine={false}>whatever.</Message>
           <Message isMine={false}>whatever.</Message>
           <Message isMine={false}>whatever.</Message>
+        </View>
         </ScrollView>
     );
   };
+  const handleSend = () => {
+    console.log("call successful")
+    /*
+    const clearAll = async () => {
+      try {
+        await AsyncStorage.clear()
+      } catch(e) {
+        // clear error
+      }
+    
+      console.log('Done.')
+    }
+    clearAll()
+
+        */
+        const getAllKeys = async () => {
+          let keys:string[] = []
+          try {
+            keys = await AsyncStorage.getAllKeys()
+          } catch(e) {
+            // read key error
+          }
+          return keys
+
+          
+        }
+        getAllKeys().then(keys => {
+          console.log(true)
+          console.log(keys)
+          //keys.push("@filler")
+          let newArray = []
+          for (let index = 0; index < keys.length; index++) {
+            if(keys[index].startsWith("@message-user")) {
+            newArray.push(keys[index].replace("@message-user-", ""))
+            }}
+          newArray.sort(function(a:any, b:any) {
+            return a - b;
+          });
+          const storeData = async (value:string) => {
+            try {
+              await AsyncStorage.setItem('@message-user-'+newArray.length, value)
+            } catch (e) {
+              // saving error
+            }
+          }
+          storeData("ahoy matey")
+        })
+
+
+
+  }
   return (
     <KeyboardAvoidingView
       behavior={Platform.OS === 'ios' ? 'padding' : 'height'}
       style={{flex: 1}}
       keyboardVerticalOffset={110}>
-      <View>
+
         <Messages />
-      </View>
+
       <View
         style={[
           {
@@ -141,7 +196,7 @@ const Chat = () => {
             backgroundColor: '#cecece',
             width: 45,
             height: 45,
-          }}>
+          }} onPress={handleSend}>
           <Image
             style={{height: 30, width: 30, marginLeft: 10, marginTop: 8}}
             source={require('./send.png')}
