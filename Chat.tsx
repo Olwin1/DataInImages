@@ -23,7 +23,7 @@ import {
   TouchableOpacity,
   KeyboardAvoidingView,
   Platform,
-  FlatList
+  FlatList,
 } from 'react-native';
 
 import {
@@ -66,17 +66,77 @@ const Chat = () => {
     );
   };
   const Messages = () => {
-    console.log("test")
+    const [messages, setMessages] = React.useState([]);
+    console.log('test');
     return (
       <FlatList
-      data={[{"key": "Hello There"}, {"key": "Hi"}, {"key": "Hi"}, {"key": "Hi"}, {"key": "Hi"}, {"key": "Hi"}, {"key": "Hi"}, {"key": "Hi"}, {"key": "Hi"}, {"key": "Hi"}, {"key": "Hi"}, {"key": "Hi"}, {"key": "Hi"}, {"key": "Hi"}, {"key": "Hi"}, {"key": "Hi"}, {"key": "Hi"}, {"key": "Hi"}, {"key": "Hi"}, {"key": "Hi"}, {"key": "Hi"}, {"key": "Hi"}, {"key": "Hi"}, {"key": "Hi"}, {"key": "Hi"}, {"key": "Hi"}, {"key": "Hi"}, {"key": "Hi"}, {"key": "Hi"}, {"key": "Hi"}]}
-      renderItem={({item}) => <Message isMine={true}>{item.key}</Message>} />
-
+        data={[
+          {key: 'Hello There'},
+          {key: 'Hi'},
+          {key: 'Hi'},
+          {key: 'Hi'},
+          {key: 'Hi'},
+          {key: 'Hi'},
+          {key: 'Hi'},
+          {key: 'Hi'},
+          {key: 'Hi'},
+          {key: 'Hi'},
+          {key: 'Hi'},
+          {key: 'Hi'},
+          {key: 'Hi'},
+          {key: 'Hi'},
+          {key: 'Hi'},
+          {key: 'Hi'},
+          {key: 'Hi'},
+          {key: 'Hi'},
+          {key: 'Hi'},
+          {key: 'Hi'},
+          {key: 'Hi'},
+          {key: 'Hi'},
+          {key: 'Hi'},
+          {key: 'Hi'},
+          {key: 'Hi'},
+          {key: 'Hi'},
+          {key: 'Hi'},
+          {key: 'Hi'},
+          {key: 'Hi'},
+          {key: 'Hi'},
+        ]}
+        renderItem={({item}) => <Message isMine={true}>{item.key}</Message>}
+      />
     );
   };
-  let txt = ""
-  const handleSend = () => {
-    console.log("call successful")
+  let txt = '';
+  const getAllKeys = async () => {
+    let keys: string[] = [];
+    try {
+      keys = await AsyncStorage.getAllKeys();
+    } catch (e) {
+      // read key error
+    }
+    return keys;
+  };
+  const getLastIndex = async () => {
+    let index = await getAllKeys().then(keys => {
+      console.log("100");
+      console.log(keys);
+      //keys.push("@filler")
+      let newArray = [];
+      for (let index = 0; index < keys.length; index++) {
+        if (keys[index].startsWith('@message-user')) {
+          newArray.push(keys[index].replace('@message-user-', ''));
+        }
+      }
+      //newArray.sort(function (a: any, b: any) {
+      //  return a - b;
+      //});
+      console.log("returning")
+      return newArray.length - 1;
+    });
+    return index
+  };
+  const handleSend = async () => {
+    console.log('call successful');
     /*
     const clearAll = async () => {
       try {
@@ -90,51 +150,32 @@ const Chat = () => {
     clearAll()
 
         */
-        const getAllKeys = async () => {
-          let keys:string[] = []
-          try {
-            keys = await AsyncStorage.getAllKeys()
-          } catch(e) {
-            // read key error
-          }
-          return keys
 
-          
+    if (txt != '') {
+      const storeData = async (index: number, value: string) => {
+        try {
+          await AsyncStorage.setItem('@message-user-' + index, value);
+        } catch (e) {
+          // saving error
         }
-        if(txt != "") {
-        getAllKeys().then(keys => {
-          console.log(true)
-          console.log(keys)
-          //keys.push("@filler")
-          let newArray = []
-          for (let index = 0; index < keys.length; index++) {
-            if(keys[index].startsWith("@message-user")) {
-            newArray.push(keys[index].replace("@message-user-", ""))
-            }}
-          newArray.sort(function(a:any, b:any) {
-            return a - b;
-          });
-          const storeData = async (value:string) => {
-            try {
-              await AsyncStorage.setItem('@message-user-'+newArray.length, value)
-            } catch (e) {
-              // saving error
-            }
-          }
-
-          storeData(txt)
-        })}
+      };
+      await getLastIndex().then(index => {
+        console.log('below is count');
+        console.log(index);
+        console.log('that is count');
 
 
 
-  }
+        //          storeData(index, txt)
+      });
+    }
+  };
   return (
     <KeyboardAvoidingView
       behavior={Platform.OS === 'ios' ? 'padding' : 'height'}
       style={{flex: 1}}
       keyboardVerticalOffset={110}>
-
-        <Messages />
+      <Messages />
 
       <View
         style={[
@@ -148,7 +189,7 @@ const Chat = () => {
         ]}>
         <TextInput
           style={styles.input}
-          onChangeText={text => txt=text}
+          onChangeText={text => (txt = text)}
           //value={text}
         />
         <TouchableOpacity
@@ -157,7 +198,8 @@ const Chat = () => {
             backgroundColor: '#cecece',
             width: 45,
             height: 45,
-          }} onPress={handleSend}>
+          }}
+          onPress={handleSend}>
           <Image
             style={{height: 30, width: 30, marginLeft: 10, marginTop: 8}}
             source={require('./send.png')}
