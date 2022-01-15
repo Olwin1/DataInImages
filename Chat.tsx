@@ -116,6 +116,7 @@ const Chat = () => {
         </ScrollView>
     );
   };
+  let txt = ""
   const handleSend = () => {
     console.log("call successful")
     /*
@@ -142,6 +143,7 @@ const Chat = () => {
 
           
         }
+        if(txt != "") {
         getAllKeys().then(keys => {
           console.log(true)
           console.log(keys)
@@ -161,8 +163,9 @@ const Chat = () => {
               // saving error
             }
           }
-          storeData("ahoy matey")
-        })
+
+          storeData(txt)
+        })}
 
 
 
@@ -187,7 +190,7 @@ const Chat = () => {
         ]}>
         <TextInput
           style={styles.input}
-          //onChangeText={onChangeText}
+          onChangeText={text => txt=text}
           //value={text}
         />
         <TouchableOpacity
