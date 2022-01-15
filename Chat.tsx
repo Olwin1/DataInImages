@@ -23,6 +23,7 @@ import {
   TouchableOpacity,
   KeyboardAvoidingView,
   Platform,
+  FlatList
 } from 'react-native';
 
 import {
@@ -67,53 +68,10 @@ const Chat = () => {
   const Messages = () => {
     console.log("test")
     return (
-      <ScrollView>
-        <View>
-          <Message isMine={true}>
-            Hello{'\n'}dfdf{'\n'}dfdf{'\n'}dfdf{'\n'}dfdf{'\n'}dfdf{'\n'}dfdf
-            {'\n'}dfdf{'\n'}dfdf{'\n'}dfdf{'\n'}dfdf{'\n'}dfdf{'\n'}dfdf
-          </Message>
-          <Message isMine={false}>Hi</Message>
-          <Message isMine={true}>OMG HI</Message>
-          <Message isMine={true}>YOU RESPONDEDDED</Message>
-          <Message isMine={true}>WOOOO</Message>
-          <Message isMine={false}>whatever.</Message>
-          <Message isMine={false}>whatever.</Message>
-          <Message isMine={false}>whatever.</Message>
-          <Message isMine={false}>whatever.</Message>
-          <Message isMine={false}>whatever.</Message>
-          <Message isMine={false}>whatever.</Message>
-          <Message isMine={false}>whatever.</Message>
-          <Message isMine={false}>whatever.</Message>
-          <Message isMine={false}>whatever.</Message>
-          <Message isMine={false}>whatever.</Message>
-          <Message isMine={false}>whatever.</Message>
-          <Message isMine={false}>whatever.</Message>
-          <Message isMine={false}>whatever.</Message>
-          <Message isMine={false}>whatever.</Message>
-          <Message isMine={false}>whatever.</Message>
-          <Message isMine={false}>whatever.</Message>
-          <Message isMine={false}>whatever.</Message>
-          <Message isMine={false}>whatever.</Message>
-          <Message isMine={false}>whatever.</Message>
-          <Message isMine={false}>whatever.</Message>
-          <Message isMine={false}>whatever.</Message>
-          <Message isMine={false}>whatever.</Message>
-          <Message isMine={false}>whatever.</Message>
-          <Message isMine={false}>whatever.</Message>
-          <Message isMine={false}>whatever.</Message>
-          <Message isMine={false}>whatever.</Message>
-          <Message isMine={false}>whatever.</Message>
-          <Message isMine={false}>whatever.</Message>
-          <Message isMine={false}>whatever.</Message>
-          <Message isMine={false}>whatever.</Message>
-          <Message isMine={false}>whatever.</Message>
-          <Message isMine={false}>whatever.</Message>
-          <Message isMine={false}>whatever.</Message>
-          <Message isMine={false}>whatever.</Message>
-          <Message isMine={false}>whatever.</Message>
-        </View>
-        </ScrollView>
+      <FlatList
+      data={[{"key": "Hello There"}, {"key": "Hi"}, {"key": "Hi"}, {"key": "Hi"}, {"key": "Hi"}, {"key": "Hi"}, {"key": "Hi"}, {"key": "Hi"}, {"key": "Hi"}, {"key": "Hi"}, {"key": "Hi"}, {"key": "Hi"}, {"key": "Hi"}, {"key": "Hi"}, {"key": "Hi"}, {"key": "Hi"}, {"key": "Hi"}, {"key": "Hi"}, {"key": "Hi"}, {"key": "Hi"}, {"key": "Hi"}, {"key": "Hi"}, {"key": "Hi"}, {"key": "Hi"}, {"key": "Hi"}, {"key": "Hi"}, {"key": "Hi"}, {"key": "Hi"}, {"key": "Hi"}, {"key": "Hi"}]}
+      renderItem={({item}) => <Message isMine={true}>{item.key}</Message>} />
+
     );
   };
   let txt = ""
